@@ -1,0 +1,153 @@
+﻿@model IPagedList<LearningCloud.MVC.Areas.Admin.ViewModels.AulaViewModel>
+@using PagedList;
+@using PagedList.Mvc;
+@using LearningCloud.MVC.HTMLHelpers;
+
+@{
+    ViewBag.Title = "Consultar Aulas";
+    string classeCssInativo = "";
+}
+
+<section class="content-header">
+    <h1> Consulta de Aulas <small>Todas as aulas</small> </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+        <li class="active">Here</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Aula</h3>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <p>
+                                <a href="@Url.Action("Create", new { page = ViewBag.page })" data-toggle="tooltip" data-placement="right" title="Cadastrar Nova Aula"><i class="fa fa-file-video-o">&nbsp;</i>Nova Aula</a>
+                            </p>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="nav navbar-nav navbar-right" style="color:#006A5A; font-weight:bold; font-size:12px; border: 1px solid #fff; background-color: #ecf0f5;">
+                                @*
+                                    @Model.PageCount <span>PageCount</span><br />
+                                    @Model.TotalItemCount <span>TotalItemCount</span><br />
+                                    @Model.PageNumber <span>PageNumber</span><br />
+                                    @Model.PageSize <span>PageSize</span><br />
+                                *@
+
+                                @Html.LegendaPaginacao("Videoaula", 'F', null, Model.PageNumber, Model.PageSize, Model.TotalItemCount)
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-condensed table-striped">
+                        <tr>
+                            <th width="35%">Título</th>
+                            <th width="7%">Tipo Conteúdo</th>
+                            <th width="37%">Curso</th>
+                            @*<th>Introdução</th>
+                            <th>Descrição</th>
+                            <th>Pré-requisitos</th>
+                            <th>Tempo do Vídeo</th>
+                            <th>Vídeo</th>
+                            <th>Conteúdo Artigo</th>
+                            <th>Palavras Chave</th>*@
+                            <th width="5%">Status</th>
+                            <th width="10%">Disponível a partir de</th>
+                            <th width="6%"></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            classeCssInativo = "";
+
+                            if (item.aul_status == "I")
+                            {
+                                classeCssInativo = "warning";
+                            }
+                            <tr class="@classeCssInativo">
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.aul_titulo)
+                                </td>
+                                <td>
+                                    @if (item.aul_tipoconteudo == "V")
+                                    {
+                                        <span>Videoaula </span>
+                                    }
+                                    else if (item.aul_tipoconteudo == "A")
+                                    {
+                                        <span>Artigo</span>
+                                    }
+                                </td>
+                                <td>
+                                    Não definido
+                                </td>
+                                @*<td>
+                                    @Html.DisplayFor(modelItem => item.aul_indroducao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.aul_descricao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.aul_prerequisitos)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.aul_tempovideo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.aul_video)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.aul_conteudoartigo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.aul_palavraschave)
+                                </td>*@
+                                <td>
+                                    @if (item.aul_status == "A")
+                                    {
+                                        <span>Ativo</span>
+                                    }
+                                    else if (item.aul_status == "I")
+                                    {
+                                        <span>Inativo</span>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.aul_assinaturanivel.asn_titulo)
+                                </td>
+                                <td class="td_toolIcons">
+                                    <a href="@Url.Action("Details", new { id = item.aul_id, page = ViewBag.page })" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="fa fa-ellipsis-h"></i></a><label>&nbsp;</label>
+                                    <a href="@Url.Action("Edit", new { id = item.aul_id, page = ViewBag.page })" data-toggle="tooltip" data-placement="top" title="Alterar"><i class="fa fa-pencil-square-o"></i></a><label>&nbsp;</label>
+                                    <a href="@Url.Action("Delete", new { id = item.aul_id, page = ViewBag.page })" data-toggle="tooltip" data-placement="top" title="Excluir"><i class="fa fa-trash-o"></i></a>
+                                    @if (item.aul_status == "A")
+                                    {
+                                        <label>&nbsp;</label>  
+                                        <a href="@Url.Action("Inactivate", new { id = item.aul_id, page = ViewBag.page })" data-toggle="tooltip" data-placement="top" title="Inativar"><i class="fa fa-check-square-o"></i></a>
+                                    }
+                                    else if (item.aul_status == "I")
+                                    {
+                                        <label>&nbsp;</label>  
+                                        <a href="@Url.Action("Activate", new { id = item.aul_id, page = ViewBag.page })" data-toggle="tooltip" data-placement="top" title="Ativar"><i class="fa fa-square-o"></i></a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                    <div class="row" style=" text-align:center">
+                        <div class="col-md-12">
+                            @Html.PagedListPager(Model, page => Url.Action("Index", "Aula", new { page }))
+                        </div>
+                    </div>
+                </div> <!-- /.col-md-12 -->
+            </div><!-- /.row -->
+        </div><!-- /.box-body -->
+    </div><!-- /.box box-default -->
+</section><!-- /.content -->
+
+

@@ -1,0 +1,151 @@
+﻿@model LearningCloud.MVC.Areas.Admin.ViewModels.AulaViewModel
+
+@{
+    ViewBag.Title = "Inativar Aula";
+}
+<section class="content-header">
+    <h1> Inativar Aula <small>Tem certeza que gostaria de inativar essa aula?</small> </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Aula</h3>
+        </div>
+
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.aul_titulo)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.aul_titulo)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.aul_tipoconteudo)
+                            </dt>
+
+                            <dd>
+                                @if (Model.aul_tipoconteudo == "V")
+                                {
+                                    <span>Videoaula</span>
+                                }
+                                else if (Model.aul_tipoconteudo == "A")
+                                {
+                                    <span>Artigo</span>
+                                }
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.aul_indroducao)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.aul_indroducao)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.aul_descricao)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.aul_descricao)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.aul_prerequisitos)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.aul_prerequisitos)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.aul_imagem)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.aul_imagem)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.aul_tempovideo)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.aul_tempovideo)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.aul_video)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.aul_video)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.aul_conteudoartigo)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.aul_conteudoartigo)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.aul_palavraschave)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.aul_palavraschave)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.aul_status)
+                            </dt>
+
+                            <dd>
+                                @if (Model.aul_status == "A")
+                                {
+                                    <span>Ativo</span>
+                                }
+                                else if (Model.aul_status == "I")
+                                {
+                                    <span>Inativo</span>
+                                }
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.aul_fk_assinaturanivel)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.aul_assinaturanivel.asn_titulo)
+                            </dd>
+
+                        </dl>
+
+                        @using (Html.BeginForm(new { page = ViewBag.page }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-actions no-color">
+                                <input type="submit" value="Inativar" class="btn btn-default" /> <label>|</label>
+                                @Html.ActionLink("Voltar", "Index", new { page = ViewBag.page })
+                            </div>
+                        }
+                    </div>
+                </div> <!-- /.col-md-12 -->
+            </div><!-- /.row -->
+            <div class="box-footer">
+
+            </div><!-- /.box-footer -->
+        </div><!-- /.box-body -->
+    </div><!-- /.box box-default -->
+</section><!-- /.content -->

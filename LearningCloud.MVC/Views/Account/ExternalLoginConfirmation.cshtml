@@ -1,0 +1,120 @@
+﻿@model LearningCloud.Infra.CrossCutting.Identity.Models.AccountViewModels.ExternalLoginConfirmationViewModel
+
+@{
+    ViewBag.Title = "Confirmação de Login Externo";
+    List<string> list = new List<string>();
+    
+    foreach (var item in ViewContext.ViewData.ModelState)
+    {
+        if (item.Value.Errors.Any() && !String.IsNullOrEmpty(item.Key))
+        {
+
+            list.Add(item.Key);
+
+        }
+    }
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <section class="content-header">
+                <h1> @ViewBag.Title <small></small> </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+                    <li class="active">Here</li>
+                </ol>
+            </section>
+            <section class="content">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Associar sua conta do @ViewBag.LoginProvider.</h3>
+                    </div>
+                    <div class="box-body">
+                 
+                        @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <h4>Association Form</h4>
+                            <p class="text-info">
+                                Você foi autenticado com sucesso no <strong>@ViewBag.LoginProvider</strong>. Preecha os campos abaixo e clique no botão Registrar para concluir o logon.
+                            </p>
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <hr />
+                            if (String.IsNullOrEmpty(@Model.UserName) || list.Contains("UserName"))
+                            {
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            }
+                            else
+                            {
+
+                                Html.HiddenFor(model => model.UserName);
+                            }
+
+                            if (String.IsNullOrEmpty(@Model.Nome) || list.Contains("Nome"))
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                @Html.HiddenFor(model => model.Nome);
+                            }
+
+                            if (String.IsNullOrEmpty(Model.Sobrenome) || list.Contains("Sobrenome"))
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Sobrenome, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Sobrenome, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Sobrenome, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                @Html.HiddenFor(model => Model.Sobrenome)
+                            }
+
+                            if (String.IsNullOrEmpty(Model.Email) || list.Contains("Email"))
+                            {
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            }
+                             else
+                             {
+                                 @Html.HiddenFor(model => Model.Email, new { id= "Email", Value = @Model.Email});
+                             }
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" class="btn btn-default" value="Registrar" />
+                                </div>
+                            </div>
+                            }
+
+</div><!-- /.box-body -->
+                </div><!-- /.box box-default -->
+            </section><!-- /.content -->
+        </div><!-- /.col-lg-12 col-md-12 -->
+    </div><!-- /.row -->
+</div><!-- /.container -->
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,186 @@
+﻿@model LearningCloud.MVC.Areas.Admin.ViewModels.AulaViewModel
+
+@{
+    ViewBag.Title = "Nova Aula";
+}
+<section class="content-header">
+    <h1> Nova Aula <small></small> </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+        <li class="active">Here</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Aula</h3>
+        </div>
+        <div class="box-body">
+
+
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "aulaform" }))
+            {
+                @Html.AntiForgeryToken()
+                
+                
+                <div class="form-horizontal">
+                    @*@if (!Html.ViewData.ModelState.IsValid)
+    {
+        <div class="box_alert">
+            <div id="alert" class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <div><i class="icon fa fa-times-circle-o fa-2x"></i></div>*@
+                                <div>@Html.ValidationSummary(true, "", new { @class = "" })</div>
+                     @*       </div>
+        </div>
+    }*@
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.aul_titulo, htmlAttributes: new { @class = "control-label col-md-2 required" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.aul_titulo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Título" } })
+                            @Html.ValidationMessageFor(model => model.aul_titulo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.aul_tipoconteudo, htmlAttributes: new { @class = "control-label col-md-2 required" })
+                        <div class="col-md-9">
+                            @Html.RadioButtonFor(model => model.aul_tipoconteudo, "V", new { @checked = "checked" }) Videoaula
+                            @Html.RadioButtonFor(model => model.aul_tipoconteudo, "A", null) Artigo
+                            @Html.ValidationMessageFor(model => model.aul_tipoconteudo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @*/************************************************/*@
+                    <div class="col-md-10 col-md-offset-1">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist" id="aulaTabs">
+                            <li id="tabIntrodução" role="presentation" class="active"><a href="#Introdução" aria-controls="Introdução" role="tab" data-toggle="tab" class="required">Introdução</a></li>
+                            <li id="tabDescrição" role="presentation"><a href="#Descrição" aria-controls="Descrição" role="tab" data-toggle="tab" class="required">Descrição</a></li>
+                            <li id="tabPrerequisitos" role="presentation"><a href="#Prerequisitos" aria-controls="Prerequisitos" role="tab" data-toggle="tab">Pré-requisitos</a></li>
+                            @*<li id="tabImagem" role="presentation"><a href="#Imagem" aria-controls="Imagem" role="tab" data-toggle="tab">Imagem</a></li>*@
+                            <li id="tabVideoaula" role="presentation"><a href="#Videoaula" aria-controls="Videoaula" role="tab" data-toggle="tab" class="required">Videoaula</a></li>
+                            <li id="tabArtigo" role="presentation" class="disabled"><a href="#Artigo" aria-controls="Artigo" role="tab" data-toggle="">Artigo</a></li>
+                            <li id="tabAnexos" role="presentation" class="disabled"><a href="#" aria-controls="Anexos" role="tab" data-toggle="">Anexos</a></li>
+                        </ul>
+
+                        <!-- Tab panes --> 
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="Introdução">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.aul_indroducao, htmlAttributes: new { @class = "control-label col-md-1" })
+                                    <div class="col-md-11">
+                                        @Html.TextAreaFor(model => model.aul_indroducao, new { @class = "form-control", rows = 10, @placeholder = "Introdução" })
+                                        @Html.ValidationMessageFor(model => model.aul_indroducao, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="Descrição">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.aul_descricao, htmlAttributes: new { @class = "control-label col-md-1" })
+                                    <div class="col-md-11">
+                                        @Html.TextAreaFor(model => model.aul_descricao, new { @class = "form-control", rows = 10, @placeholder = "Descrição" })
+                                        @Html.ValidationMessageFor(model => model.aul_descricao, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="Prerequisitos">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.aul_prerequisitos, htmlAttributes: new { @class = "control-label col-md-1" })
+                                    <div class="col-md-11">
+                                        @Html.TextAreaFor(model => model.aul_prerequisitos, new { @class = "form-control", rows = 10, @placeholder = "Pré-requisitos" })
+                                        @Html.ValidationMessageFor(model => model.aul_prerequisitos, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div role="tabpanel" class="tab-pane" id="Imagem">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.aul_imagem, htmlAttributes: new { @class = "control-label col-md-1" })
+                                    <div class="col-md-11">*@
+                                        @*@Html.EditorFor(model => model.aul_imagem, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.aul_imagem, "", new { @class = "text-danger" })*@
+                                        @*<div class="dropzone" id="dropzoneForm">
+                                            <div class="fallback">
+                                                <div class="dz-default dz-message"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                            <div role="tabpanel" class="tab-pane" id="Videoaula">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.aul_video, htmlAttributes: new { @class = "control-label col-md-1" })
+                                    <div class="col-md-11">
+                                        @*@Html.EditorFor(model => model.aul_video, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.aul_video, "", new { @class = "text-danger" })*@
+                                        <div id="dropbox">
+                                            <span class="message">Arraste a imagem e solte aqui para fazer o upload</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.aul_tempovideo, htmlAttributes: new { @class = "control-label col-md-1" })
+                                    <div class="col-md-11">
+                                        @Html.EditorFor(model => model.aul_tempovideo, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.aul_tempovideo, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="Artigo">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.aul_conteudoartigo, htmlAttributes: new { @class = "control-label col-md-1" })
+                                    <div class="col-md-11">
+                                        @Html.TextAreaFor(model => model.aul_conteudoartigo, new { @class = "form-control", rows = 10 })
+                                        @Html.ValidationMessageFor(model => model.aul_conteudoartigo, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="Anexos">...Anexos</div>
+                        </div>
+
+                    </div>
+                    @*/*********Final Tabs***************************************/*@
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.aul_palavraschave, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.aul_palavraschave, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.aul_palavraschave, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.aul_status, htmlAttributes: new { @class = "control-label col-md-2 required" })
+                        <div class="col-md-9">
+                            @Html.RadioButtonFor(model => model.aul_status, "A", null) Ativo
+                            @Html.RadioButtonFor(model => model.aul_status, "I", null) Inativo
+                            @Html.ValidationMessageFor(model => model.aul_status, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.aul_fk_assinaturanivel, htmlAttributes: new { @class = "control-label col-md-2 required" })
+                        <div class="col-md-9">
+                            @*@Html.DropDownList("aul_fk_assinaturanivel", null, String.Empty, new { @class = "form-control" })*@
+                            @Html.DropDownListFor(model => model.aul_fk_assinaturanivel, (SelectList)ViewBag.assinaturanivel, String.Empty, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.aul_fk_assinaturanivel, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Salvar" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            }
+            
+            <div>
+                @Html.ActionLink("Voltar", "Index", new { page = ViewBag.page })
+            </div>
+        </div><!-- /.box-body -->
+    </div><!-- /.box box-default -->
+</section><!-- /.content -->
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

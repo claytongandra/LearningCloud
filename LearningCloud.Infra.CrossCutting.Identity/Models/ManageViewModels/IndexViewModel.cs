@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNet.Identity;
 
-namespace LearningCloud.Infra.CrossCutting.Identity.Model.ManageViewModels
+namespace LearningCloud.Infra.CrossCutting.Identity.Models.ManageViewModels
 {
     public class IndexViewModel
     {

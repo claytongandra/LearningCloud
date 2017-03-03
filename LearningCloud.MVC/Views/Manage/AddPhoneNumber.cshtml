@@ -1,0 +1,54 @@
+﻿@model LearningCloud.Infra.CrossCutting.Identity.Models.ManageViewModels.AddPhoneNumberViewModel
+
+@{
+    ViewBag.Title = "Adicionar celular";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <section class="content-header">
+                <h1> @ViewBag.Title <small></small> </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+                    <li class="active">Here</li>
+                </ol>
+            </section>
+            <section class="content">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Número de celular</h3>
+                    </div>
+                    <div class="box-body">
+    
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                <h4>AddPhoneNumberViewModel</h4>
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Number, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        @Html.EditorFor(model => model.Number, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-4 col-md-8">
+                                        <input type="submit" value="Enviar código de verificação" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div><!-- /.box-body -->
+                </div><!-- /.box box-default -->
+            </section><!-- /.content -->
+        </div><!-- /.col-lg-12 col-md-12 -->
+    </div><!-- /.row -->
+</div><!-- /.container -->
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

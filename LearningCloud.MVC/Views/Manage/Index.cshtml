@@ -1,8 +1,9 @@
-﻿@model LearningCloud.Infra.CrossCutting.Identity.Model.ManageViewModels.IndexViewModel
+﻿@model LearningCloud.Infra.CrossCutting.Identity.Models.ManageViewModels.IndexViewModel
 
 @{
     ViewBag.Title = "Gerencie sua conta";
 }
+
 <div class="container">
     <div class="row">
         <div class="col-lg-12 col-md-12">
@@ -16,14 +17,14 @@
             <section class="content">
                 <div class="box box-default">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Change your account settings</h3>
+                        <h3 class="box-title">Alterar configurações da sua conta</h3>
                     </div>
                     <div class="box-body">
                         <p class="text-success">@ViewBag.StatusMessage</p>
                         <div>
                         
                             <dl class="dl-horizontal">
-                                <dt>Password:</dt>
+                                <dt>Senha:</dt>
                                 <dd>
                                     [
                                     @if (Model.HasPassword)
@@ -36,12 +37,12 @@
                                     }
                                     ]
                                 </dd>
-                                <dt>External Logins:</dt>
+                                <dt>Logins Externos:</dt>
                                 <dd>
                                     Logins Sociais: @Model.Logins.Count
                                     @Html.ActionLink("[ Gerenciar ]", "ManageLogins")
                                 </dd>
-                                <dt>Phone Number:</dt>
+                                <dt>Número de celular:</dt>
                                 <dd>
                                     Número do Telefone: @(Model.PhoneNumber ?? "Nenhum") [
                                     @if (Model.PhoneNumber != null)
@@ -56,7 +57,7 @@
                                     }
                                     ]
                                 </dd>
-                                <dt>Two-Factor Authentication:</dt>
+                                <dt>Autenticação de dois fatores:</dt>
                                 <dd>
                                     @if (Model.TwoFactor)
                                     {
@@ -81,7 +82,7 @@
                                         }
                                     }
                                 </dd>
-                                <dt>Two-Factor Authentication:</dt>
+                                <dt>Autenticação de dois fatores:</dt>
                                 <dd>
                                     @if (Model.BrowserRemembered)
                                     {

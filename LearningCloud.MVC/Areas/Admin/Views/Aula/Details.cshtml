@@ -4,7 +4,7 @@
     ViewBag.Title = "Detalhes";
 }
 <section class="content-header">
-    <h1> Detalhes Aula <small>@Model.aul_titulo </small> </h1>
+    <h1> Detalhes Aula <small>@Model.Aula_Titulo </small> </h1>
 </section>
 <!-- Main content -->
 <section class="content">
@@ -19,11 +19,11 @@
                     <div>
                         <dl class="dl-horizontal">
                             <dt>
-                                @Html.DisplayNameFor(model => model.aul_titulo)
+                                @Html.DisplayNameFor(model => model.Aula_Titulo)
                             </dt>
 
                             <dd>
-                                @Html.DisplayFor(model => model.aul_titulo)
+                                @Html.DisplayFor(model => model.Aula_Titulo)
                             </dd>
 
                             <dt>
@@ -127,7 +127,7 @@
                         </dl>
                     </div>
                     <p>
-                        @Html.ActionLink("Alterar", "Edit", new { id = Model.aul_id, page = ViewBag.page, returnaction = "Details/" + Model.aul_id }) <label>|</label>
+                        @Html.ActionLink("Alterar", "Edit", new { id = Model.Aula_Id, page = ViewBag.page, returnaction = "Details/" + Model.Aula_Id }) <label>|</label>
                         @Html.ActionLink("Voltar", "Index", new { page = ViewBag.page })
                     </p>
                 </div> <!-- /.col-md-12 -->

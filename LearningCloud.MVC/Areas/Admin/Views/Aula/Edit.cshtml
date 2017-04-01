@@ -34,13 +34,13 @@
                             </div>
                         </div>
                     }
-                    @Html.HiddenFor(model => model.aul_id)
+                    @Html.HiddenFor(model => model.Aula_Id)
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.aul_titulo, htmlAttributes: new { @class = "control-label col-md-2 required" })
+                        @Html.LabelFor(model => model.Aula_Titulo, htmlAttributes: new { @class = "control-label col-md-2 required" })
                         <div class="col-md-9">
-                            @Html.EditorFor(model => model.aul_titulo, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.aul_titulo, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Aula_Titulo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Aula_Titulo, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -57,8 +57,8 @@
                     <div class="col-md-10 col-md-offset-1">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist" id="aulaTabs">
-                            <li id="tabIntrodução" role="presentation" class="active"><a href="#Introdução" aria-controls="Introdução" role="tab" data-toggle="tab" class="required">Introdução</a></li>
-                            <li id="tabDescrição" role="presentation"><a href="#Descrição" aria-controls="Descrição" role="tab" data-toggle="tab" class="required">Descrição</a></li>
+                            <li id="tabIntroducao" role="presentation" class="active"><a href="#Introducao" aria-controls="Introducao" role="tab" data-toggle="tab" class="required">Introdução</a></li>
+                            <li id="tabDescricao" role="presentation"><a href="#Descricao" aria-controls="Descricao" role="tab" data-toggle="tab" class="required">Descrição</a></li>
                             <li id="tabPrerequisitos" role="presentation"><a href="#Prerequisitos" aria-controls="Prerequisitos" role="tab" data-toggle="tab">Pré-requisitos</a></li>
                             @if (Model.aul_tipoconteudo == "V")
                             {
@@ -75,7 +75,7 @@
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="Introdução">
+                            <div role="tabpanel" class="tab-pane active" id="Introducao">
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.aul_indroducao, htmlAttributes: new { @class = "control-label col-md-1" })
                                     <div class="col-md-11">
@@ -84,7 +84,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div role="tabpanel" class="tab-pane" id="Descrição">
+                            <div role="tabpanel" class="tab-pane" id="Descricao">
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.aul_descricao, htmlAttributes: new { @class = "control-label col-md-1" })
                                     <div class="col-md-11">

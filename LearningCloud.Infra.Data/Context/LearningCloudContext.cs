@@ -25,7 +25,7 @@ namespace LearningCloud.Infra.Data.Context
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
             modelBuilder.Properties()
-              .Where(p => p.Name.Contains("_id"))
+              .Where(p => p.Name.Contains("_Id"))
               .Configure(p => p.IsKey());
 
             modelBuilder.Properties<string>()
@@ -36,6 +36,12 @@ namespace LearningCloud.Infra.Data.Context
 
             modelBuilder.Configurations.Add(new AulaConfiguration());
             modelBuilder.Configurations.Add(new AssinaturaNivelConfiguration());
+
+            ////Configure Column
+            //modelBuilder.Entity<Aula>()
+            //            .HasKey(aul => aul.Aula_Id)
+            //            .HasColumnName("aul_id")
+            //            .HasColumnOrder(1);
 
         }
         public override int SaveChanges()
@@ -51,11 +57,11 @@ namespace LearningCloud.Infra.Data.Context
                     {
                         var property = entry.Property(o);
 
-                        if (property.Name.Contains("_datacadastro"))
+                        if (property.Name.Contains("_DataCadastro"))
                         {
                             dataCadastro = property.Name;
                         }
-                        if (property.Name.Contains("_dataalteracao"))
+                        if (property.Name.Contains("_DataAlteracao"))
                         {
                             dataAlteracao = property.Name.ToString();
                         }

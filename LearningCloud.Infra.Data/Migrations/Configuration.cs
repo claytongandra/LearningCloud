@@ -26,10 +26,10 @@ namespace LearningCloud.Infra.Data.Migrations
             //
 
             context.AssinaturaNivel.AddOrUpdate(
-                asn => asn.asn_id,
+                asn => asn.AssinaturaNivel_Id,
                 new AssinaturaNivel()
                 {
-                    asn_id = 1,
+                    AssinaturaNivel_Id = 1,
                     asn_titulo = "Assinatura Gratuita",
                     asn_descricao = "Assinatura Gratuita - Todos os usuário cadastrados através do site sem assinatura definida.",
                     asn_nivel = 10,
@@ -37,7 +37,7 @@ namespace LearningCloud.Infra.Data.Migrations
                 },
                 new AssinaturaNivel()
                 {
-                    asn_id = 2,
+                    AssinaturaNivel_Id = 2,
                     asn_titulo = "Assinatura Básica",
                     asn_descricao = "Assinatura Básica - Usuários com acessos a conteúdos privilegiados",
                     asn_nivel = 20,
@@ -45,7 +45,7 @@ namespace LearningCloud.Infra.Data.Migrations
                 },
                 new AssinaturaNivel()
                 {
-                    asn_id = 3,
+                    AssinaturaNivel_Id = 3,
                     asn_titulo = "Assinatura Premium",
                     asn_descricao = "Assinatura Premium - Usuários com acessos a todos os conteúdos",
                     asn_nivel = 30,

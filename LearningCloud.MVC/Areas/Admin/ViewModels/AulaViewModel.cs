@@ -11,12 +11,12 @@ namespace LearningCloud.MVC.Areas.Admin.ViewModels
     public class AulaViewModel : IValidatableObject
     {
         [Key]
-        public int aul_id { get; set; }
+        public int Aula_Id { get; set; }
 
         [Required(ErrorMessage = "Preencha o campo Título.")]
         [StringLength(200, ErrorMessage = "O {0} deve possuir no mínimo {2} e máximo {1} caracteres.", MinimumLength = 2)]
         [DisplayName("Título")]
-        public string aul_titulo { get; set; }
+        public string Aula_Titulo { get; set; }
 
         [DisplayName("Tipo Conteúdo")]
         [Required(ErrorMessage = "Informe o tipo do conteúdo.")]
@@ -67,10 +67,10 @@ namespace LearningCloud.MVC.Areas.Admin.ViewModels
         public virtual AssinaturaNivel aul_assinaturanivel { get; set; }
 
         [ScaffoldColumn(false)]
-        public DateTime aul_datacadastro { get; set; }
+        public DateTime Aula_DataCadastro { get; set; }
 
         [ScaffoldColumn(false)]
-        public DateTime? aul_dataalteracao { get; set; }
+        public DateTime? Aula_DataAlteracao { get; set; }
 
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

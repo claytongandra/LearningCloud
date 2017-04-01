@@ -3,22 +3,62 @@
 //default.AdminLTE.js
 
 $(document).ready(function () {
-    //var pathname = window.location.pathname;
-    //var subPathname = pathname.substring(1, pathname.lastIndexOf('/'));
-    //alert(subPathname);
+    var vjsPathname = window.location.pathname;
+    var vjsSubPathname = vjsPathname.substring(0, vjsPathname.lastIndexOf('/'));
+    //alert(vjsPathname);
+    //alert(vjsSubPathname);
     //if (subPathname == "Admin/Aula/Edit") {
     //    alert("Aula Edit " + "Tipo: " + $("input[type=radio][name=aul_tipoconteudo]").val())
     //    fnHabilitaAbaTipoAula($("input[type=radio][name=aul_tipoconteudo]").val());
-        
+
     //}
+
+    if (vjsSubPathname == "/Admin/Aula/Edit" || vjsPathname == "/Admin/Aula/Create") {
+        CKEDITOR.replace('aul_indroducao');
+    }
+
+   
+    $('#aulaTabs').on("shown.bs.tab", function(e){
+       // alert(e.target.hash);
+        switch (e.target.hash) {
+            case "#Descricao":
+                // alert($("#aul_descricao").css("display"));
+                if (!$(e.target.hash).hasClass("content-visited")) {
+                    console.log("Intanciar editor para Descrição");
+                    CKEDITOR.replace('aul_descricao');
+                    $(e.target.hash).addClass("content-visited");
+                }
+
+                break;
+            case "#Prerequisitos":
+                if (!$(e.target.hash).hasClass("content-visited")) {
+                    console.log("Intanciar editor para Prerequisitos");
+                    CKEDITOR.replace('aul_prerequisitos');
+                    $(e.target.hash).addClass("content-visited");
+                }
+                break;
+
+            case "#Videoaula":
+                console.log("Intanciar editor para Videoaula");
+       
+                break;
+            case "#Artigo":
+                if (!$(e.target.hash).hasClass("content-visited")) {
+                    console.log("Intanciar editor para Artigo");
+                    CKEDITOR.replace('aul_conteudoartigo');
+                    $(e.target.hash).addClass("content-visited");
+                }
+                break;
+        }
+    });
 
     $('#aulaTabs li').click(function (e) {
         e.preventDefault();
         //if ($(this).hasClass("disabled")) {
 
-        //}
+        //var vjsAbaSelecionada = $(this).attr("id");
+        
     });
-
 
     function fnHabilitaAbaTipoAula(prmJsTipoConteudo) {
         var objJsAbaVideoaula = $("#aulaTabs").find("#tabVideoaula");
@@ -56,24 +96,24 @@ $(document).ready(function () {
 
 
     $('.content-wrapper').on("submit", '#aulaform', function (e) {
-       
-  
+
+
         $("#aulaTabs li:not(.active) a.required").each(function (index) {
             var vjsShowTab = $(this);
 
-          //  alert($(this).attr("href"));
+            //  alert($(this).attr("href"));
             //alert('#each'+ index);
             switch ($(this).attr("href")) {
-                
-                case '#Introdução':
+
+                case '#Introducao':
                     if ($("#aul_indroducao").val() == "" || $("#aul_indroducao").val() == null) {
                         $("#aul_indroducao").closest('div').find('.field-validation-valid').text("Preencha o campo Introdução.");
                         vjsShowTab.tab('show');
                         e.preventDefault();
-                        return(false);
+                        return (false);
                     }
                     break;
-                case '#Descrição':
+                case '#Descricao':
                     if ($("#aul_descricao").val() == "" || $("#aul_descricao").val() == null) {
                         $("#aul_descricao").closest('div').find('.field-validation-valid').text("Preencha o campo Descrição.");
                         vjsShowTab.tab('show');
@@ -93,130 +133,177 @@ $(document).ready(function () {
                     }
                     break;
             }
-            
+
         });
         //alert('#aulaform.submit()');
-       // $('#aulaform')[0].submit();
+        // $('#aulaform')[0].submit();
 
-        return(true);
+        return (true);
     });
 
 
-  
 
-   // var CKEDITOR_BASEPATH = '/ckeditor/';
+
+    // var CKEDITOR_BASEPATH = '/ckeditor/';
     //CKEDITOR.config = {
     //    customConfig: "ckeditor.config.js",
     //};
-    CKEDITOR.replace('aul_indroducao');
-    CKEDITOR.replace('aul_descricao');
-    CKEDITOR.replace('aul_prerequisitos');
-    CKEDITOR.replace('aul_conteudoartigo');
+    //CKEDITOR.replace('aul_indroducao');
+    //CKEDITOR.replace('aul_descricao');
+    //CKEDITOR.replace('aul_prerequisitos');
+    //CKEDITOR.replace('aul_conteudoartigo');
     //initSample();
+
+
+    /**************************************************************************/
+
+   
     /************************************************************************/
+   
 
-    $(function () {
+    // enable fileuploader plugin
+    $('input[name="filevideo"]').fileuploader({
+        limit: 1, // limit of the files {Number}
+        maxSize: 500, // files maximal size in Mb {Number}
+        fileMaxSize: 500, // file maximal size in Mb {Number}
+        extensions: ['video/mp4', 'video/webm'], // allowed extensions or types {Array}
+        changeInput: '<div class="fileuploader-input">' +
+					      '<div class="fileuploader-input-inner">' +
+						      '<img src="/Content/Images/img_botoes/fileuploader-dragdrop-icon.png">' +
+							  '<h3 class="fileuploader-input-caption"><span>Arraste e solte o vídeo aqui</span></h3>' +
+							  '<p>ou</p>' +
+							  '<div class="fileuploader-input-button"><span>Selecione Vídeo</span></div>' +
+						  '</div>' +
+					  '</div>',
+        theme: 'dragdrop',
+        upload: {
+            url: 'AdicionarVideo',
+            data: null,
+            type: 'POST',
+            enctype: 'multipart/form-data',
+            start: true,
+            synchron: true,
+            beforeSend: null,
+            onSuccess: function (result, item, listEl, parentEl, newInputEl, inputEl, textStatus, jqXHR) {
+                console.log("onSuccess result: " + result);
+                console.log("onSuccess item: " + item);
+                console.log("onSuccess listEl: " + listEl);
+                console.log("onSuccess parentEl: " + parentEl);
+                console.log("onSuccess newInputEl: " + newInputEl);
+                console.log("onSuccess inputEl: " + inputEl);
+                console.log("onSuccess textStatus: " + textStatus);
+                console.log("onSuccess jqXHR: " + jqXHR);
 
-        var dropbox = $('#dropbox'),
-            message = $('.message', dropbox);
+                console.log("onSuccess jqXHR.status: " + jqXHR.status);
 
-        dropbox.filedrop({
-            // The name of the $_FILES entry:
-            paramname: 'pic',
+                console.log("onSuccess jqXHR.statusText: " + jqXHR.statusText);
 
-            maxfiles: 1,
-            maxfilesize: 200,// in mb
-            url: 'post_file.php',
+                console.log("onSuccess jqXHR.responseText: " + jqXHR.responseText);
 
-            uploadFinished: function (i, file, response) {
-                $.data(file).addClass('done');
-                // response is the JSON object that post_file.php returns
-            },
+                var data = JSON.parse(result);
 
-            error: function (err, file) {
-                switch (err) {
-                    case 'BrowserNotSupported':
-                        showMessage('Your browser does not support HTML5 file uploads!');
-                        break;
-                    case 'TooManyFiles':
-                        alert('Too many files! Please select 5 at most! (configurable)');
-                        break;
-                    case 'FileTooLarge':
-                        alert(file.name + ' is too large! Please upload files up to 2mb (configurable).');
-                        break;
-                    default:
-                        break;
+                if (data.isSuccess && data.files[0]) {
+                    item.name = data.files[0].name;
                 }
+
+                item.html.find('.column-actions').append('<a class="fileuploader-action fileuploader-action-remove fileuploader-action-success" title="Remove"><i></i></a>');
+                setTimeout(function () {
+                    item.html.find('.progress-bar2').fadeOut(400);
+                }, 400);
             },
+            onError: function (item, jqXHR, textStatus, errorThrown) {
+                var progressBar = item.html.find('.progress-bar2');
 
-            // Called before each upload is started
-            beforeEach: function (file) {
-                if (!file.type.match(/^video\//)) {
-                    alert('Only video are allowed!');
-
-                    // Returning false will cause the
-                    // file to be rejected
-                    return false;
+                if (progressBar.length > 0) {
+                    progressBar.find('span').html(0 + "%");
+                    progressBar.find('.fileuploader-progressbar .bar').width(0 + "%");
+                    item.html.find('.progress-bar2').fadeOut(400);
                 }
-            },
 
-            uploadStarted: function (i, file, len) {
-                createImage(file);
-            },
+                item.upload.status != 'cancelled' && item.html.find('.fileuploader-action-retry').length == 0 ? item.html.find('.column-actions').prepend(
+                    '<a class="fileuploader-action fileuploader-action-retry" title="Retry"><i></i></a>'
+                ) : null;
 
-            progressUpdated: function (i, file, progress) {
-                $.data(file).find('.progress').width(progress);
+                console.log("onError item: " + item);
+
+                console.log("onError textStatus: " + textStatus);
+
+                console.log("onError errorThrown: " + errorThrown);
+
+                console.log("onError jqXHR status: " + jqXHR.status);
+                console.log("onError jqXHR statusText: " + jqXHR.statusText);
+            },
+            onProgress: function (data, item) {
+                var progressBar = item.html.find('.progress-bar2');
+
+                if (progressBar.length > 0) {
+                    progressBar.show();
+                    progressBar.find('span').html(data.percentage + "%");
+                    progressBar.find('.fileuploader-progressbar .bar').width(data.percentage + "%");
+                }
+
+                console.log("onProgress: " + data.percentage);
+            },
+            onComplete: null,
+        },
+        onRemove: function (item) {
+            $.post('RemoverVideo', {
+                file: item.name
+            });
+        },
+        dialogs: {
+	
+            // alert dialog
+            alert: function(text) {
+                return alert(text);
+            },
+		
+            // confirm dialog
+            confirm: function(text, callback) {
+                confirm(text) ? callback() : null;
             }
-
-        });
-
-        var template = '<div class="preview">' +
-                            '<span class="imageHolder">' +
-                                '<img />' +
-                                '<span class="uploaded"></span>' +
-                            '</span>' +
-                            '<div class="progressHolder">' +
-                                '<div class="progress"></div>' +
-                            '</div>' +
-                        '</div>';
-
-
-        function createImage(file) {
-
-            var preview = $(template),
-                image = $('img', preview);
-
-            var reader = new FileReader();
-
-            image.width = 100;
-            image.height = 100;
-
-            reader.onload = function (e) {
-
-                // e.target.result holds the DataURL which
-                // can be used as a source of the image:
-
-                image.attr('src', e.target.result);
-            };
-
-            // Reading the file as a DataURL. When finished,
-            // this will trigger the onload function above:
-            reader.readAsDataURL(file);
-
-            message.hide();
-            preview.appendTo(dropbox);
-
-            // Associating a preview container
-            // with the file, using jQuery's $.data():
-
-            $.data(file, preview);
-        }
-
-        function showMessage(msg) {
-            message.html(msg);
-        }
-
+        },
+        captions: {
+            feedback: 'Arraste e solte o vídeo aqui',
+            feedback2: 'Arraste e solte o vídeo aqui',
+            drop: 'Arraste e solte o vídeo aqui',
+            removeConfirmation: 'Are you sure you want to remove this file?',
+            errors: {
+                filesLimit: 'Only ${limit} files are allowed to be uploaded.',
+                filesType: 'Only ${extensions} files are allowed to be uploaded.',
+                fileSize: '${name} is too large! Please choose a file up to ${fileMaxSize}MB.',
+                filesSizeAll: 'Files that you choosed are too large! Please upload files up to ${maxSize} MB.',
+                fileName: 'File with the name ${name} is already selected.',
+                folderUpload: 'You are not allowed to upload folders.'
+            }
+        },
     });
+
+
+            //console.log("Arquivo: " + file.type)
+            //$.ajax({
+            //    url: "AdicionarVideo",
+            //    type: 'POST',
+            //    contentType: "multipart/form-data",
+            //    processData: false,
+            //    cache: false,
+            //    global: true,
+            //    data: { "file": file },
+            //    beforeSend: function () {
+                    
+            //    },
+            //    success: function (result) {
+            //        $("#messages").html(result);
+            //    },
+            //    error: function (xhr, errorMessage, thrownError) {
+            //        $('#messages').empty().append("<div class='alert alert-danger' role='alert'><ul id='erro_post'><li>Ocorreu um erro ao carregar as informações.</li><li>Erro: " + xhr.status + "</li><li>Descrição: " + xhr.statusText + "</li><li>Caso o problema persista, contate o administrador do sistema.</li></ul></div>");
+            //    }
+            //});
+
+ 
+      
+ 
+    
     /************************************************************************/
 
 });

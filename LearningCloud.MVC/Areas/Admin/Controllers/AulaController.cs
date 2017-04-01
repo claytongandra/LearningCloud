@@ -5,6 +5,10 @@ using PagedList;
 using LearningCloud.Application.Interfaces;
 using LearningCloud.Domain.Entities;
 using LearningCloud.MVC.Areas.Admin.ViewModels;
+using System.Web;
+using System;
+using System.IO;
+using System.Net;
 
 
 namespace LearningCloud.MVC.Areas.Admin.Controllers
@@ -48,7 +52,7 @@ namespace LearningCloud.MVC.Areas.Admin.Controllers
         // GET: Admin/Aula/Create
         public ActionResult Create(int? page)
         {
-            ViewBag.assinaturanivel = new SelectList(_assinaturaNivelApp.GetByStatusAssinaturaNivel("A"), "asn_id", "asn_titulo");
+            ViewBag.assinaturanivel = new SelectList(_assinaturaNivelApp.GetByStatusAssinaturaNivel("A"), "AssinaturaNivel_Id", "asn_titulo");
             ViewBag.page = page;
 
             return View();
@@ -68,7 +72,7 @@ namespace LearningCloud.MVC.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.assinaturanivel = new SelectList(_assinaturaNivelApp.GetByStatusAssinaturaNivel("A"), "asn_id", "asn_titulo", aula.aul_fk_assinaturanivel);
+            ViewBag.assinaturanivel = new SelectList(_assinaturaNivelApp.GetByStatusAssinaturaNivel("A"), "AssinaturaNivel_Id", "asn_titulo", aula.aul_fk_assinaturanivel);
             ViewBag.page = page;
 
             return View(aula);
@@ -85,7 +89,7 @@ namespace LearningCloud.MVC.Areas.Admin.Controllers
                 returnaction = "Index";
             }
 
-            ViewBag.assinaturanivel = new SelectList(_assinaturaNivelApp.GetByStatusAssinaturaNivel("A"), "asn_id", "asn_titulo", aulaViewModel.aul_fk_assinaturanivel);
+            ViewBag.assinaturanivel = new SelectList(_assinaturaNivelApp.GetByStatusAssinaturaNivel("A"), "AssinaturaNivel_Id", "asn_titulo", aulaViewModel.aul_fk_assinaturanivel);
             ViewBag.page = page;
             ViewBag.ReturnAction = returnaction;
 
@@ -107,7 +111,7 @@ namespace LearningCloud.MVC.Areas.Admin.Controllers
                 return RedirectToAction((string)returnaction, new { page = page });
             }
 
-            ViewBag.assinaturanivel = new SelectList(_assinaturaNivelApp.GetByStatusAssinaturaNivel("A,I"), "asn_id", "asn_titulo", aula.aul_fk_assinaturanivel);
+            ViewBag.assinaturanivel = new SelectList(_assinaturaNivelApp.GetByStatusAssinaturaNivel("A,I"), "AssinaturaNivel_Id", "asn_titulo", aula.aul_fk_assinaturanivel);
             ViewBag.page = page;
             ViewBag.ReturnAction = returnaction;
 
@@ -170,6 +174,68 @@ namespace LearningCloud.MVC.Areas.Admin.Controllers
             _aulaApp.ChangeStatusAula(aula, "A");
 
             return RedirectToAction("Index", new { page = page });
+        }
+
+       
+
+        [HttpPost]
+        public JsonResult AdicionarVideo(HttpPostedFileBase filevideo)
+        {
+
+            string resultadoUpImagem = null;
+         
+            try
+            {
+
+                
+                if (filevideo != null)
+                {
+                    string fileExt = Path.GetExtension(filevideo.FileName).Replace(@".", @"").ToLower();
+
+                    if (filevideo.ContentLength > 0)
+                    {
+                         if (fileExt != "mp4" && fileExt != "webm" && fileExt != "mkv")
+                        {
+                            //  Response.Status = "804 Tipo de arquivo não permitido";
+                            Response.Status = "804 Tipo de arquivo não permitido.  <br />Selecione apenas arquivos de video (.mp4, .webm ou .mkv). ";
+
+                        }
+                        else
+                        {
+                            //var v = file.ContentLength;
+                            //if (file.ContentLength > 3145728)  //3145728  bytes  = 3 Mb
+                            //{
+                            //    ViewBag.Message = "O Tamanho do arquivo não permitido. <br />Selecione um video de até 3Mb";
+                            //    ViewBag.Status = -1;
+                            //    return PartialView();
+                            //}
+                            //else
+                            //{
+                                resultadoUpImagem = UploadVideoaula.UploadFileVideoaula(filevideo);
+
+                                
+                            //}
+                        }
+                    }
+                    else
+                    {
+                        Response.Status = "802 O Conteudo do Arquivo está vazio. ";
+
+                    }
+                }
+                else
+                {
+                    Response.Status = "803 O Arquivo é nullo.";
+
+                }
+            }
+            catch (WebException e)
+            {
+                resultadoUpImagem = e.Response.ToString();
+            }
+
+            return Json(resultadoUpImagem);
+
         }
 
     }

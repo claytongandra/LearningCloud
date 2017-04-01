@@ -4,8 +4,8 @@ namespace LearningCloud.Domain.Entities
 {
     public class Aula
     {
-        public int aul_id { get; set; }
-        public string aul_titulo { get; set; }
+        public int Aula_Id { get; set; }
+        public string Aula_Titulo { get; set; }
         public string aul_tipoconteudo { get; set; }
         public string aul_indroducao { get; set; }
         public string aul_descricao { get; set; }
@@ -21,9 +21,9 @@ namespace LearningCloud.Domain.Entities
 
         //public virtual int aul_fk_instrutor { get; set; }
         //public virtual int aul_fk_operadorcadastro { get; set; }
-        public DateTime aul_datacadastro { get; set; }
+        public DateTime Aula_DataCadastro { get; set; }
         //public virtual int aul_fk_operadoralteracao { get; set; }
-        public DateTime? aul_dataalteracao { get; set; }
+        public DateTime? Aula_DataAlteracao { get; set; }
         //public virtual ICollection<Curso> Cursos { get; set; }
     }
 }

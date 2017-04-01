@@ -7,10 +7,15 @@ namespace LearningCloud.Infra.Data.EntityConfig
     {
         public AulaConfiguration()
         {
-            HasKey(aul => aul.aul_id);
+            HasKey(aul => aul.Aula_Id);
 
-            Property(aul => aul.aul_titulo)
+            Property(aul => aul.Aula_Id)
+               .IsRequired()
+               .HasColumnName("aul_id");
+
+            Property(aul => aul.Aula_Titulo)
                 .IsRequired()
+                .HasColumnName("aul_titulo")
                 .HasMaxLength(200);
 
             Property(aul => aul.aul_tipoconteudo)
@@ -50,11 +55,13 @@ namespace LearningCloud.Infra.Data.EntityConfig
             Property(aul => aul.aul_palavraschave)
                 .HasMaxLength(8000);
 
-            Property(aul => aul.aul_datacadastro)
-                .IsRequired()
+            Property(aul => aul.Aula_DataCadastro)
+                .IsRequired() 
+                .HasColumnName("aul_datacadastro")
                 .HasColumnType("datetime2");
 
-            Property(aul => aul.aul_dataalteracao)
+            Property(aul => aul.Aula_DataAlteracao)
+                .HasColumnName("aul_dataalteracao")
                 .IsOptional()
                 .HasColumnType("datetime2");
 

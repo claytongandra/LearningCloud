@@ -35,7 +35,7 @@ namespace LearningCloud.MVC
                         "~/Scripts/Plugins/jquery.slimscroll.min.js",
                         "~/Scripts/Plugins/fastclick.min.js",
                         "~/Scripts/AdminLTE/app.js",
-                        "~/Scripts/Plugins/jquery.filedrop.js",
+                        "~/Scripts/Plugins/jquery.fileuploader.min.js",
                         "~/Scripts/Plugins/ckeditor/ckeditor.js",
                         "~/Scripts/Plugins/ckeditor/config.js",
                         "~/Scripts/default.AdminLTE.js"
@@ -54,11 +54,13 @@ namespace LearningCloud.MVC
             bundles.Add(new StyleBundle("~/Content/css/AdminLTE").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/font-awesome.css",
-                      "~/Content/Plugins/filedrop.styles.css",
                         "~/Content/Plugins/ckeditor/ckeditor.contents.css",
                       "~/Content/Templates/AdminLTE/AdminLTE.css",
                       "~/Content/Templates/AdminLTE/Skins/skin-green.min.css",
+                      "~/Content/Plugins/jquery.fileuploader.css",
                       "~/Content/Site.AdminLTE.css"));
+
+            BundleTable.EnableOptimizations = false;
 
         }
     }

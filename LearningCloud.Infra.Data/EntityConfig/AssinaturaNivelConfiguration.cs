@@ -7,7 +7,11 @@ namespace LearningCloud.Infra.Data.EntityConfig
     {
         public AssinaturaNivelConfiguration()
         {
-            HasKey(asn => asn.asn_id);
+            HasKey(asn => asn.AssinaturaNivel_Id);
+
+            Property(asn => asn.AssinaturaNivel_Id)
+              .IsRequired()
+              .HasColumnName("asn_id");
 
             Property(asn => asn.asn_titulo)
                 .IsRequired()

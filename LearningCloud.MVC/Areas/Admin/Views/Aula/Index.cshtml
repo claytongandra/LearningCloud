@@ -71,7 +71,7 @@
                             <tr class="@classeCssInativo">
 
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.aul_titulo)
+                                    @Html.DisplayFor(modelItem => item.Aula_Titulo)
                                 </td>
                                 <td>
                                     @if (item.aul_tipoconteudo == "V")
@@ -121,18 +121,18 @@
                                     @Html.DisplayFor(modelItem => item.aul_assinaturanivel.asn_titulo)
                                 </td>
                                 <td class="td_toolIcons">
-                                    <a href="@Url.Action("Details", new { id = item.aul_id, page = ViewBag.page })" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="fa fa-ellipsis-h"></i></a><label>&nbsp;</label>
-                                    <a href="@Url.Action("Edit", new { id = item.aul_id, page = ViewBag.page })" data-toggle="tooltip" data-placement="top" title="Alterar"><i class="fa fa-pencil-square-o"></i></a><label>&nbsp;</label>
-                                    <a href="@Url.Action("Delete", new { id = item.aul_id, page = ViewBag.page })" data-toggle="tooltip" data-placement="top" title="Excluir"><i class="fa fa-trash-o"></i></a>
+                                    <a href="@Url.Action("Details", new { id = item.Aula_Id, page = ViewBag.page })" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="fa fa-ellipsis-h"></i></a><label>&nbsp;</label>
+                                    <a href="@Url.Action("Edit", new { id = item.Aula_Id, page = ViewBag.page })" data-toggle="tooltip" data-placement="top" title="Alterar"><i class="fa fa-pencil-square-o"></i></a><label>&nbsp;</label>
+                                    <a href="@Url.Action("Delete", new { id = item.Aula_Id, page = ViewBag.page })" data-toggle="tooltip" data-placement="top" title="Excluir"><i class="fa fa-trash-o"></i></a>
                                     @if (item.aul_status == "A")
                                     {
                                         <label>&nbsp;</label>  
-                                        <a href="@Url.Action("Inactivate", new { id = item.aul_id, page = ViewBag.page })" data-toggle="tooltip" data-placement="top" title="Inativar"><i class="fa fa-check-square-o"></i></a>
+                                        <a href="@Url.Action("Inactivate", new { id = item.Aula_Id, page = ViewBag.page })" data-toggle="tooltip" data-placement="top" title="Inativar"><i class="fa fa-check-square-o"></i></a>
                                     }
                                     else if (item.aul_status == "I")
                                     {
                                         <label>&nbsp;</label>  
-                                        <a href="@Url.Action("Activate", new { id = item.aul_id, page = ViewBag.page })" data-toggle="tooltip" data-placement="top" title="Ativar"><i class="fa fa-square-o"></i></a>
+                                        <a href="@Url.Action("Activate", new { id = item.Aula_Id, page = ViewBag.page })" data-toggle="tooltip" data-placement="top" title="Ativar"><i class="fa fa-square-o"></i></a>
                                     }
                                 </td>
                             </tr>

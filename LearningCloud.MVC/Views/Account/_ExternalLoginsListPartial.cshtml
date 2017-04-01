@@ -1,10 +1,18 @@
 ﻿@model LearningCloud.Infra.CrossCutting.Identity.Models.AccountViewModels.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
+@{
+    string classButton = "";
+    string classButtonIcon = "";
+
+
+    
+}
 
 <h4>Ou utilize outro serviço para fazer o login:</h4>
 <hr />
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+
     if (loginProviders.Count() == 0) {
         <div>
             <p>
@@ -17,13 +25,33 @@
         using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl })) {
             @Html.AntiForgeryToken()
             <div id="socialLoginList">
-                <p>
+                <div class="container">
                     @foreach (AuthenticationDescription p in loginProviders)
                     {
-                        <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Entrar utilizando sua conta do @p.Caption">@p.AuthenticationType</button>
+                        switch (p.AuthenticationType)
+                        {
+                            case "Facebook":
+                                classButton = "btn-primary";
+                                classButtonIcon = "fa-facebook";
+                                break;
+                            case "Google":
+                                classButton = "btn-danger";
+                                classButtonIcon = "fa-google-plus";
+                                break;
+                            default:
+                                classButton = "btn-default";
+                                classButtonIcon = "fa-sign-in";
+                                break;
+                        }
+                        <div class="form-group">
+                            <button type="submit" class="btn @classButton" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Entrar utilizando sua conta @p.Caption" style="min-width:250px;">
+                                <i class="fa @classButtonIcon">&nbsp;&nbsp;</i>
+                                Entrar com sua conta @p.AuthenticationType
+                            </button>
+                        </div><!-- /.form-group -->
                     }
-                </p>
-            </div>
+                </div><!-- /.container -->
+            </div><!-- /#socialLoginList -->
         }
     }
 }
